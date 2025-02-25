@@ -7,6 +7,7 @@
 package slurm
 
 import (
+	"os"
 	"os/exec"
 	"strconv"
 	"strings"
@@ -25,6 +26,10 @@ const (
 
 	// ScriptCmdPrefix is the prefix to add to a script
 	ScriptCmdPrefix = "#SBATCH"
+
+	envVarNumNodes = "SLURM_JOB_NUM_NODES"
+
+	envVarPartition = "SLURM_JOB_PARTITION"
 )
 
 func removeFromSlice(a []string, idx int) []string {
@@ -124,4 +129,13 @@ func JobStatus(jobIDs []int) ([]hpcjob.Status, error) {
 	}
 
 	return s, nil
+}
+
+func GetNumNodes() (int, error) {
+	valStr := os.Getenv(envVarNumNodes)
+	return strconv.Atoi(valStr)
+}
+
+func GetPartition() string {
+	return os.Getenv(envVarPartition)
 }

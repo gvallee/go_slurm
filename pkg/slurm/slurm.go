@@ -30,6 +30,8 @@ const (
 	envVarNumNodes = "SLURM_JOB_NUM_NODES"
 
 	envVarPartition = "SLURM_JOB_PARTITION"
+
+	envVarListNodes = "SLURM_JOB_NODELIST"
 )
 
 func removeFromSlice(a []string, idx int) []string {
@@ -138,4 +140,8 @@ func GetNumNodes() (int, error) {
 
 func GetPartition() string {
 	return os.Getenv(envVarPartition)
+}
+
+func GetListNode() string {
+	return os.Getenv(envVarListNodes)
 }

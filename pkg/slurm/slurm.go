@@ -32,6 +32,8 @@ const (
 	envVarPartition = "SLURM_JOB_PARTITION"
 
 	envVarListNodes = "SLURM_JOB_NODELIST"
+
+	envVarJobID = "SLURM_JOB_ID"
 )
 
 func removeFromSlice(a []string, idx int) []string {
@@ -133,15 +135,24 @@ func JobStatus(jobIDs []int) ([]hpcjob.Status, error) {
 	return s, nil
 }
 
+// GetNumNodes returns the number of nodes in the current SLURM allocation
 func GetNumNodes() (int, error) {
 	valStr := os.Getenv(envVarNumNodes)
 	return strconv.Atoi(valStr)
 }
 
+// GetPartition returns the partition's name of the current SLURM allocation
 func GetPartition() string {
 	return os.Getenv(envVarPartition)
 }
 
+// GetListNode returns the list of nodes in the current SLURM allocation
 func GetListNode() string {
 	return os.Getenv(envVarListNodes)
+}
+
+// GetJobID returns the job identifier in the current SLURM allocation
+func GetJobID() (int, error) {
+	valStr := os.Getenv(envVarJobID)
+	return strconv.Atoi(valStr)
 }
